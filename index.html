@@ -1135,19 +1135,19 @@
                 <form id="contact-form" onsubmit="submitForm(event)">
                     <div class="form-group">
                         <label for="name" class="form-label">الاسم الكامل*</label>
-                        <input type="text" id="name" class="form-control" required>
+                        <input type="text" id="name" name="name" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="email" class="form-label">البريد الإلكتروني*</label>
-                        <input type="email" id="email" class="form-control" required>
+                        <input type="email" id="email" name="email" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="phone" class="form-label">رقم الهاتف (اختياري)</label>
-                        <input type="tel" id="phone" class="form-control">
+                        <input type="tel" id="phone" name="phone" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="product" class="form-label">المنتج*</label>
-                        <select id="product" class="form-control" required>
+                        <select id="product" name="product" class="form-control" required>
                             <option value="">اختر المنتج</option>
                             <option value="eco-paper">ورق صديق للبيئة</option>
                             <option value="paper-bags">شنط ورقية</option>
@@ -1155,7 +1155,7 @@
                     </div>
                     <div class="form-group">
                         <label for="message" class="form-label">الرسالة*</label>
-                        <textarea id="message" class="form-control" rows="5" required></textarea>
+                        <textarea id="message" name="message" class="form-control" rows="5" required></textarea>
                     </div>
                     <button type="submit" class="btn form-submit">إرسال الطلب</button>
                 </form>
@@ -1197,40 +1197,28 @@
     </div>
 </section>
 
-
 <script src="https://app.form2chat.io/f/8e3c9538"></script>
 
 <script>
     function submitForm(event) {
-        event.preventDefault(); // Prevent default form submission
-        
-        const formData = new FormData(document.getElementById('contact-form'));
-        
-        
-        const name = formData.get('name');
-        const email = formData.get('email');
-        const phone = formData.get('phone');
-        const product = formData.get('product');
-        const message = formData.get('message');
+        event.preventDefault(); 
 
-    
+        const form = document.getElementById('contact-form');
+        const formData = new FormData(form);
+
         const data = {
-            name: name,
-            email: email,
-            phone: phone,
-            product: product,
-            message: message
+            name: formData.get('name'),
+            email: formData.get('email'),
+            phone: formData.get('phone'),
+            product: formData.get('product'),
+            message: formData.get('message')
         };
 
-        
         form2chat.submit(data).then(response => {
-            // Handle success thaju
-        
-            alert('your typings submited ..hurray ');
+            alert('تم إرسال الطلب بنجاح! شكراً لتواصلك معنا.');
+            form.reset();
         }).catch(error => {
-            
-            
-            alert('somethinh went wrong dont worry . send again ');
+            alert('حدث خطأ أثناء الإرسال. الرجاء المحاولة مرة أخرى.');
         });
     }
 </script>
