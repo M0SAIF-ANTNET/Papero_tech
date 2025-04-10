@@ -1,0 +1,1597 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بيبرو - صناعة ذكية تأثير صديق للبيئة</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@200;300;400;500;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --primary-color-light: #81C784;
+            --primary-color-dark: #388E3C;
+            --secondary-color: #F5F5DC;
+            --accent-color: #8D5524;
+            --text-color: #333333;
+            --text-color-light: #777777;
+            --white: #FFFFFF;
+            --black: #000000;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Tajawal', 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        body.ltr {
+            direction: ltr;
+            text-align: left;
+            font-family: 'Poppins', 'Tajawal', sans-serif;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Cairo', 'Poppins', sans-serif;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 50%;
+            transform: translateX(50%);
+            width: 80px;
+            height: 3px;
+            background: var(--primary-color);
+        }
+
+        body.ltr .section-title h2::after {
+            right: auto;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -50%;
+            width: 150%;
+            height: 100%;
+            background: linear-gradient(to left, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: skewX(-25deg);
+            transition: 0.75s all ease;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            right: 150%;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-color-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: var(--white);
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .header.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-left: 10px;
+            font-size: 2rem;
+        }
+
+        body.ltr .logo i {
+            margin-left: 0;
+            margin-right: 10px;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-list {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-item {
+            margin: 0 15px;
+        }
+
+        .nav-link {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        body.ltr .nav-link::after {
+            right: auto;
+            left: 0;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .language-toggle {
+            margin-right: 20px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 4px;
+            background-color: var(--secondary-color);
+            transition: var(--transition);
+        }
+
+        body.ltr .language-toggle {
+            margin-right: 0;
+            margin-left: 20px;
+        }
+
+        .language-toggle:hover {
+            background-color: #e5e5c9;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .hamburger .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            background-color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.9) 0%, rgba(56, 142, 60, 0.85) 100%), url('/api/placeholder/1600/800') center/cover no-repeat;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            color: var(--white);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/api/placeholder/500/500') no-repeat;
+            background-size: cover;
+            opacity: 0.05;
+            animation: float 15s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-20px) scale(1.05); }
+        }
+
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s forwards 0.5s;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s forwards 0.7s;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s forwards 0.9s;
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 60px 0;
+            background-color: var(--white);
+            margin-top: -80px;
+            border-radius: 10px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 0 20px;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .stat-item::after {
+            content: '';
+            position: absolute;
+            top: 10%;
+            left: 0;
+            height: 80%;
+            width: 1px;
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-item:first-child::after {
+            display: none;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-text {
+            font-size: 1.1rem;
+            color: var(--text-color-light);
+        }
+
+        /* Blog Section */
+        .blog {
+            background-color: var(--secondary-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog::before {
+            content: '';
+            position: absolute;
+            top: -150px;
+            right: -150px;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background-color: rgba(76, 175, 80, 0.1);
+            z-index: 0;
+        }
+
+        .blog::after {
+            content: '';
+            position: absolute;
+            bottom: -150px;
+            left: -150px;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background-color: rgba(76, 175, 80, 0.1);
+            z-index: 0;
+        }
+
+        .blog-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .blog-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            transform: translateY(50px);
+            opacity: 0;
+        }
+
+        .blog-card.animated {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .blog-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .blog-content {
+            padding: 20px;
+        }
+
+        .blog-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .blog-desc {
+            color: var(--text-color-light);
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-color-light);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .more-btn {
+            text-align: center;
+        }
+
+        /* Products Section */
+        .products {
+            position: relative;
+        }
+
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            margin: 0 10px 10px;
+            background-color: var(--white);
+            border: 1px solid var(--primary-color);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .products-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        .product-card.animated {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .product-content {
+            padding: 20px;
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .product-desc {
+            color: var(--text-color-light);
+            margin-bottom: 15px;
+        }
+
+        .product-price {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        /* Contact Section */
+        .contact {
+            background-color: var(--secondary-color);
+            position: relative;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .contact-form {
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .contact-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--primary-color-dark);
+        }
+
+        .contact-text {
+            margin-bottom: 30px;
+            color: var(--text-color);
+        }
+
+        .contact-details {
+            margin-bottom: 20px;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 15px;
+            color: var(--white);
+        }
+
+        body.ltr .contact-icon {
+            margin-left: 0;
+            margin-right: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e1e1e1;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+            direction: rtl;
+        }
+
+        body.ltr .form-control {
+            direction: ltr;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            border-radius: 5px;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #2d2d2d;
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-logo {
+            margin-bottom: 20px;
+            display: inline-block;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .footer-about {
+            margin-bottom: 20px;
+            color: #b9b9b9;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .footer-title {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+
+        body.ltr .footer-title::after {
+            right: auto;
+            left: 0;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-link {
+            margin-bottom: 10px;
+        }
+
+        .footer-link a {
+            color: #b9b9b9;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-link a:hover {
+            color: var(--primary-color);
+            padding-right: 5px;
+        }
+
+        body.ltr .footer-link a:hover {
+            padding-right: 0;
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #b9b9b9;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info {
+                order: -1;
+            }
+
+            .stat-item::after {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .hamburger.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+
+            .hamburger.active .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+
+            .nav-menu {
+                position: fixed;
+                right: -100%;
+                top: 80px;
+                flex-direction: column;
+                background-color: var(--white);
+                width: 100%;
+                padding: 20px;
+                box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+                transition: 0.5s;
+                z-index: 99;
+            }
+
+            body.ltr .nav-menu {
+                right: auto;
+                left: -100%;
+            }
+
+            .nav-menu.active {
+                right: 0;
+            }
+
+            body.ltr .nav-menu.active {
+                right: auto;
+                left: 0;
+            }
+
+            .nav-list {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .nav-item {
+                margin: 15px 0;
+                width: 100%;
+                text-align: center;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .hero-btns {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .stats-container {
+                flex-direction: column;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .blog-container, .products-container {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-form {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <span>بيبرو</span>
+                    <i class="fas fa-leaf"></i>
+                </a>
+                <div class="nav-menu">
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="#home" class="nav-link">الرئيسية</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#about" class="nav-link">من نحن</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#blog" class="nav-link">المدونة</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#products" class="nav-link">المنتجات</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#contact" class="nav-link">تواصل معنا</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="language-toggle" id="langToggle">
+                    <span>English</span>
+                </div>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero section" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">بيبرو - صناعة ذكية تأثير صديق للبيئة</h1>
+                <p class="hero-subtitle">نحن نقدم أجود أنواع المنتجات الورقية المستدامة، مصممة خصيصاً لتلبية احتياجات الشركات الحديثة والمساهمة في مستقبل أكثر استدامة.</p>
+                <div class="hero-btns">
+                    <a href="#products" class="btn">تصفح منتجاتنا</a>
+                    <a href="#about" class="btn btn-secondary">اعرف أكثر عنا</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <div class="container">
+        <section class="stats" id="about">
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-number" data-count="15">0</div>
+                    <div class="stat-text">سنوات من الخبرة</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="500">0</div>
+                    <div class="stat-text">عميل راضٍ</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="2000">0</div>
+                    <div class="stat-text">طن من الورق المستدام</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="100">0<span>%</span></div>
+                    <div class="stat-text">شراكة فعالة</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Blog Section -->
+    <section class="blog section" id="blog">
+        <div class="container">
+            <div class="section-title">
+                <h2>مدونة بيبرو</h2>
+            </div>
+            <div class="blog-container">
+                <div class="blog-card">
+                    <img src="زززز" alt="مقال" class="blog-img">
+                    <div class="blog-content">
+                        <h3 class="blog-title">مستقبل الورق المستدام في عالم الأعمال</h3>
+                        <p class="blog-desc">استكشف كيف تغير المنتجات الورقية الصديقة للبيئة مشهد الأعمال العالمي وتساهم في التنمية المستدامة.</p>
+                        <div class="blog-meta">
+                            <span>باحث في بيبرو</span>
+                            <span>9 أبريل 2025</span>
+                        </div>
+                        <a href="#" class="btn">اقرأ أكثر</a>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <img src="ةةةة" alt="مقال" class="blog-img">
+                    <div class="blog-content">
+                        <h3 class="blog-title">كيف تختار الأكياس الورقية المناسبة لعلامتك التجارية</h3>
+                        <p class="blog-desc">دليل شامل لمساعدة الشركات في اختيار الأكياس الورقية التي تعكس هوية العلامة التجارية وتلبي احتياجات العملاء.</p>
+                        <div class="blog-meta">
+                            <span>باحث في بيبرو</span>
+                            <span>22 فبراير 2025</span>
+                        </div>
+                        <a href="#" class="btn">اقرأ أكثر</a>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <img src="/api/placeholder/600/400" alt="مقال" class="blog-img">
+                    <div class="blog-content">
+                        <h3 class="blog-title">الابتكارات الجديدة في صناعة الورق المستدام</h3>
+                        <p class="blog-desc">تعرف على أحدث التقنيات والابتكارات في مجال الورق الصديق للبيئة وكيف تساهم في تقليل البصمة الكربونية.</p>
+                        <div class="blog-meta">
+                            <span>باحث في بيبرو</span>
+                            <span>5 أبريل 2025</span>
+                        </div>
+                        <a href="#" class="btn">اقرأ أكثر</a>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <img src="/api/placeholder/600/400" alt="مقال" class="blog-img">
+                    <div class="blog-content">
+                        <h3 class="blog-title">دراسة حالة: كيف ساعدنا شركة الخليج للتجارة على تقليل النفايات</h3>
+                        <p class="blog-desc">قصة نجاح حقيقية لإحدى عملائنا وكيف ساهمت منتجاتنا في تحسين ممارسات الاستدامة لديهم وتوفير التكاليف.</p>
+                        <div class="blog-meta">
+                            <span>باحث في بيبرو</span>
+                            <span>18 يناير 2025</span>
+                        </div>
+                        <a href="#" class="btn">اقرأ أكثر</a>
+                    </div>
+                </div>
+            </div>
+            <div class="more-btn">
+                <a href="ببب" class="btn">اقرأ المزيد</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products section" id="products">
+        <div class="container">
+            <div class="section-title">
+                <h2>منتجاتنا</h2>
+            </div>
+            <div class="filter-container">
+                <button class="filter-btn active" data-filter="all">الكل</button>
+                <button class="filter-btn" data-filter="paper">ورق صديق للبيئة</button>
+                <button class="filter-btn" data-filter="bags">شنط ورقية</button>
+            </div>
+            <div class="products-container">
+                <div class="product-card" data-category="paper">
+                    <img src="/api/placeholder/600/400" alt="ورق معاد تدويره" class="product-img">
+                    <div class="product-content">
+                        <h3 class="product-title">ورق معاد تدويره للطباعة</h3>
+                        <p class="product-desc">ورق عالي الجودة معاد تدويره بنسبة 100%، مثالي للطباعة وصديق للبيئة.</p>
+                        <div class="product-price">من 299 جنيه</div>
+                        <a href="#contact" class="btn">طلب الآن</a>
+                    </div>
+                </div>
+                <div class="product-card" data-category="paper">
+                    <img src="/api/placeholder/600/400" alt="ورق كرافت" class="product-img">
+                    <div class="product-content">
+                        <h3 class="product-title">ورق كرافت طبيعي</h3>
+                        <p class="product-desc">ورق كرافت متين عالي الجودة، مثالي للتغليف والأعمال الإبداعية والديكور.</p>
+                        <div class="product-price">من 199 جنيه</div>
+                        <a href="#contact" class="btn">طلب الآن</a>
+                    </div>
+                </div>
+                <div class="product-card" data-category="bags">
+                    <img src="/api/placeholder/600/400" alt="أكياس ورقية مخصصة" class="product-img">
+                    <div class="product-content">
+                        <h3 class="product-title">أكياس ورقية مخصصة للعلامات التجارية</h3>
+                        <p class="product-desc">أكياس ورقية قابلة للتخصيص مع طباعة لوجو الشركة والألوان المخصصة.</p>
+                        <div class="product-price">من 499 جنيه / 100 قطعة</div>
+                        <a href="#contact" class="btn">طلب الآن</a>
+                    </div>
+                </div>
+                <div class="product-card" data-category="bags">
+                    <img src="/api/placeholder/600/400" alt="أكياس ورقية مع مقابض" class="product-img">
+                    <div class="product-content">
+                        <h3 class="product-title">أكياس ورقية بمقابض حبل</h3>
+                        <p class="product-desc">أكياس ورقية فاخرة مع مقابض حبل متينة، مثالية للمتاجر والهدايا.</p>
+                        <div class="product-price">من 599 جنيه / 100 قطعة</div>
+                        <a href="#contact" class="btn">طلب الآن</a>
+                    </div>
+                </div>
+                <div class="product-card" data-category="paper">
+                    <img src="/api/placeholder/600/400" alt="ورق تغليف" class="product-img">
+                    <div class="product-content">
+                        <h3 class="product-title">ورق تغليف صديق للبيئة</h3>
+                        <p class="product-desc">ورق تغليف مصنوع من مواد معاد تدويرها، متوفر بتصاميم وألوان متنوعة.</p>
+                        <div class="product-price">من 249 جنيه</div>
+                        <a href="#contact" class="btn">طلب الآن</a>
+                    </div>
+                </div>
+                <div class="product-card" data-category="bags">
+                    <img src="/api/placeholder/600/400" alt="أكياس ورقية للطعام" class="product-img">
+                    <div class="product-content">
+                        <h3 class="product-title">أكياس ورقية للمطاعم والمخابز</h3>
+                        <p class="product-desc">أكياس ورقية صديقة للبيئة ومقاومة للدهون، مثالية للمطاعم ومحلات المخابز.</p>
+                        <div class="product-price">من 399 جنيه / 200 قطعة</div>
+                        <a href="#contact" class="btn">طلب الآن</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section v1 by thaju  let me know if anything is wrong -->
+    <section class="contact section" id="contact">
+        <div class="container">
+            <div class="section-title text-center mb-5">
+                <h2>تواصل معنا</h2>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="contact-form">
+                        <h3 class="mb-4">اطلب الآن</h3>
+                        <form id="contact-form">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">الاسم الكامل*</label>
+                                <input type="text" id="name" name="name" class="form-control" placeholder="اكتب اسمك الكامل" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">البريد الإلكتروني*</label>
+                                <input type="email" id="email" name="email" class="form-control" placeholder="example@email.com" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">رقم الهاتف (اختياري)</label>
+                                <input type="tel" id="phone" name="phone" class="form-control" placeholder="0123456789">
+                            </div>
+                            <div class="mb-3">
+                                <label for="product" class="form-label">المنتج*</label>
+                                <select id="product" name="product" class="form-select" required>
+                                    <option value="">اختر المنتج</option>
+                                    <option value="eco-paper">ورق صديق للبيئة</option>
+                                    <option value="paper-bags">شنط ورقية</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">الرسالة*</label>
+                                <textarea id="message" name="message" class="form-control" rows="5" placeholder="اكتب رسالتك هنا..." required></textarea>
+                            </div>
+                            <div id="form-status" class="mb-3"></div>
+                            <button type="submit" class="btn btn-primary w-100" id="submit-button">إرسال الطلب</button>
+                        </form>
+                    </div>
+    
+                    <div class="contact-info mt-5">
+                        <h3 class="contact-title mb-3">هل لديك أسئلة؟</h3>
+                        <p class="contact-text mb-4">نحن هنا لمساعدتك في اختيار المنتجات الورقية المناسبة لاحتياجات عملك. تواصل معنا الآن للحصول على استشارة مجانية.</p>
+    
+                        <div class="contact-details">
+                            <div class="contact-detail">
+                                <div class="contact-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div>
+                                    <h5>العنوان</h5>
+                                    <p>7631 شارع حلوان</p>
+                                </div>
+                            </div>
+                            <div class="contact-detail">
+                                <div class="contact-icon">
+                                    <i class="fas fa-phone-alt"></i>
+                                </div>
+                                <div>
+                                    <h5>الهاتف</h5>
+                                    <p>+20 12 22328997</p>
+                                </div>
+                            </div>
+                            <div class="contact-detail">
+                                <div class="contact-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h5>البريد الإلكتروني</h5>
+                                    <p>info@papero.eg</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Font Awesome for icons (optional) -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    
+    <!-- Form submission script -->
+    <script>
+        const form = document.getElementById('contact-form');
+        const submitBtn = document.getElementById('submit-button');
+        const statusMsg = document.getElementById('form-status');
+    
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+    
+            // Reset messages and update button
+            statusMsg.innerHTML = '';
+            submitBtn.disabled = true;
+            submitBtn.innerText = 'جاري الإرسال...';
+    
+            fetch('https://app.form2chat.io/f/8e3c9538', {
+                method: 'POST',
+                body: new FormData(form),
+            })
+            .then(response => {
+                if (response.ok) {
+                    statusMsg.innerHTML = '<div class="alert alert-success">✅ تم إرسال الطلب بنجاح! سنقوم بالتواصل معك قريباً.</div>';
+                    form.reset();
+                } else {
+                    statusMsg.innerHTML = '<div class="alert alert-danger">❌ حدث خطأ أثناء الإرسال. حاول مرة أخرى.</div>';
+                }
+            })
+            .catch(error => {
+                console.error('خطأ:', error);
+                statusMsg.innerHTML = '<div class="alert alert-danger">❌ فشل الاتصال بالخادم. حاول لاحقاً.</div>';
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerText = 'إرسال الطلب';
+            });
+        });
+    </script>
+    
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <a href="#" class="footer-logo">بيبرو</a>
+                    <p class="footer-about">نحن شركة رائدة في مجال المنتجات الورقية الصديقة للبيئة، نهدف إلى توفير حلول مستدامة للشركات تساهم في الحفاظ على البيئة.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-title">روابط سريعة</h4>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#home">الرئيسية</a></li>
+                        <li class="footer-link"><a href="#about">من نحن</a></li>
+                        <li class="footer-link"><a href="#products">المنتجات</a></li>
+                        <li class="footer-link"><a href="#blog">المدونة</a></li>
+                        <li class="footer-link"><a href="#contact">تواصل معنا</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-title">منتجاتنا</h4>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#products">ورق معاد تدويره</a></li>
+                        <li class="footer-link"><a href="#products">ورق كرافت</a></li>
+                        <li class="footer-link"><a href="#products">أكياس ورقية مخصصة</a></li>
+                        <li class="footer-link"><a href="#products">أكياس بمقابض حبل</a></li>
+                        <li class="footer-link"><a href="#products">أكياس للمطاعم</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-title">النشرة الإخبارية</h4>
+                    <p>اشترك في نشرتنا الإخبارية للحصول على آخر الأخبار والعروض الحصرية.</p>
+                    <form class="footer-form">
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="البريد الإلكتروني" required>
+                        </div>
+                        <button type="submit" class="btn">اشترك الآن</button>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© 2025 بيبرو. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Language Toggle
+        const langToggle = document.getElementById('langToggle');
+        const body = document.querySelector('body');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const hero = document.querySelector('.hero-title');
+        const heroSub = document.querySelector('.hero-subtitle');
+        const heroBtns = document.querySelectorAll('.hero-btns .btn');
+        const sectionTitles = document.querySelectorAll('.section-title h2');
+        const blogBtns = document.querySelectorAll('.blog-card .btn');
+        const moreBlogBtn = document.querySelector('.more-btn .btn');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const productBtns = document.querySelectorAll('.product-card .btn');
+        const contactTitle = document.querySelector('.contact-title');
+        const contactText = document.querySelector('.contact-text');
+        const formLabels = document.querySelectorAll('.form-label');
+        const formSubmit = document.querySelector('.form-submit');
+        const footerLinks = document.querySelectorAll('.footer-link a');
+        const footerTitles = document.querySelectorAll('.footer-title');
+        const copyright = document.querySelector('.copyright p');
+        const logo = document.querySelector('.logo span');
+        const footerLogo = document.querySelector('.footer-logo');
+        const footerAbout = document.querySelector('.footer-about');
+
+        let isArabic = true;
+
+        langToggle.addEventListener('click', () => {
+            isArabic = !isArabic;
+            
+            if (isArabic) {
+                body.classList.remove('ltr');
+                body.setAttribute('dir', 'rtl');
+                body.setAttribute('lang', 'ar');
+                langToggle.innerHTML = '<span>English</span>';
+                updateContent('ar');
+            } else {
+                body.classList.add('ltr');
+                body.setAttribute('dir', 'ltr');
+                body.setAttribute('lang', 'en');
+                langToggle.innerHTML = '<span>العربية</span>';
+                updateContent('en');
+            }
+        });
+
+        function updateContent(lang) {
+            if (lang === 'ar') {
+                // Arabic content
+                navLinks[0].textContent = 'الرئيسية';
+                navLinks[1].textContent = 'من نحن';
+                navLinks[2].textContent = 'المدونة';
+                navLinks[3].textContent = 'المنتجات';
+                navLinks[4].textContent = 'تواصل معنا';
+                
+                hero.textContent = 'حلول ورقية صديقة للبيئة لشركات المستقبل';
+                heroSub.textContent = 'نحن نقدم أجود أنواع المنتجات الورقية المستدامة، مصممة خصيصاً لتلبية احتياجات الشركات الحديثة والمساهمة في مستقبل أكثر استدامة.';
+                heroBtns[0].textContent = 'تصفح منتجاتنا';
+                heroBtns[1].textContent = 'اعرف أكثر عنا';
+                
+                sectionTitles[0].textContent = 'مدونة بيبرو';
+                sectionTitles[1].textContent = 'منتجاتنا';
+                sectionTitles[2].textContent = 'تواصل معنا';
+                
+                blogBtns.forEach(btn => {
+                    btn.textContent = 'اقرأ أكثر';
+                });
+                moreBlogBtn.textContent = 'اقرأ المزيد';
+                
+                filterBtns[0].textContent = 'الكل';
+                filterBtns[1].textContent = 'ورق صديق للبيئة';
+                filterBtns[2].textContent = 'شنط ورقية';
+                
+                productBtns.forEach(btn => {
+                    btn.textContent = 'طلب الآن';
+                });
+                
+                contactTitle.textContent = 'هل لديك أسئلة؟';
+                contactText.textContent = 'نحن هنا لمساعدتك في اختيار المنتجات الورقية المناسبة لاحتياجات عملك. تواصل معنا الآن للحصول على استشارة مجانية.';
+                
+                formLabels[0].textContent = 'الاسم الكامل*';
+                formLabels[1].textContent = 'البريد الإلكتروني*';
+                formLabels[2].textContent = 'رقم الهاتف (اختياري)';
+                formLabels[3].textContent = 'المنتج*';
+                formLabels[4].textContent = 'الرسالة*';
+                
+                formSubmit.textContent = 'إرسال الطلب';
+                
+                footerTitles[0].textContent = 'روابط سريعة';
+                footerTitles[1].textContent = 'منتجاتنا';
+                footerTitles[2].textContent = 'النشرة الإخبارية';
+                
+                footerLinks[0].textContent = 'الرئيسية';
+                footerLinks[1].textContent = 'من نحن';
+                footerLinks[2].textContent = 'المنتجات';
+                footerLinks[3].textContent = 'المدونة';
+                footerLinks[4].textContent = 'تواصل معنا';
+                
+                copyright.textContent = '© 2025 بيبرو. جميع الحقوق محفوظة.';
+                logo.textContent = 'بيبرو';
+                footerLogo.textContent = 'بيبرو';
+                footerAbout.textContent = 'نحن شركة رائدة في مجال المنتجات الورقية الصديقة للبيئة، نهدف إلى توفير حلول مستدامة للشركات تساهم في الحفاظ على البيئة.';
+                
+            } else {
+                // English content
+                navLinks[0].textContent = 'Home';
+                navLinks[1].textContent = 'About Us';
+                navLinks[2].textContent = 'Blog';
+                navLinks[3].textContent = 'Products';
+                navLinks[4].textContent = 'Contact Us';
+                
+                hero.textContent = 'Eco-Friendly Paper Solutions for Future Businesses';
+                heroSub.textContent = 'We provide the finest sustainable paper products, specifically designed to meet the needs of modern businesses and contribute to a more sustainable future.';
+                heroBtns[0].textContent = 'Browse Our Products';
+                heroBtns[1].textContent = 'Learn More About Us';
+                
+                sectionTitles[0].textContent = 'Papero Blog';
+                sectionTitles[1].textContent = 'Our Products';
+                sectionTitles[2].textContent = 'Contact Us';
+                
+                blogBtns.forEach(btn => {
+                    btn.textContent = 'Read More';
+                });
+                moreBlogBtn.textContent = 'View All Posts';
+                
+                filterBtns[0].textContent = 'All';
+                filterBtns[1].textContent = 'Eco-Friendly Paper';
+                filterBtns[2].textContent = 'Paper Bags';
+                
+                productBtns.forEach(btn => {
+                    btn.textContent = 'Order Now';
+                });
+                
+                contactTitle.textContent = 'Got Questions?';
+                contactText.textContent = 'We are here to help you choose the right paper products for your business needs. Contact us now for a free consultation.';
+                
+                formLabels[0].textContent = 'Full Name*';
+                formLabels[1].textContent = 'Email*';
+                formLabels[2].textContent = 'Phone (Optional)';
+                formLabels[3].textContent = 'Product*';
+                formLabels[4].textContent = 'Message*';
+                
+                formSubmit.textContent = 'Submit Request';
+                
+                footerTitles[0].textContent = 'Quick Links';
+                footerTitles[1].textContent = 'Our Products';
+                footerTitles[2].textContent = 'Newsletter';
+                
+                footerLinks[0].textContent = 'Home';
+                footerLinks[1].textContent = 'About Us';
+                footerLinks[2].textContent = 'Products';
+                footerLinks[3].textContent = 'Blog';
+                footerLinks[4].textContent = 'Contact Us';
+                
+                copyright.textContent = '© 2025 Papero. All Rights Reserved.';
+                logo.textContent = 'Papero';
+                footerLogo.textContent = 'Papero';
+                footerAbout.textContent = 'We are a leading company in eco-friendly paper products, aiming to provide sustainable solutions for businesses that contribute to environmental preservation.';
+            }
+        }
+
+        // Mobile Menu Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-link').forEach(n => 
+            n.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            })
+        );
+
+        // Sticky Header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Stats Counter Animation
+        const counters = document.querySelectorAll('.stat-number');
+        const speed = 200;
+
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    const target = parseInt(counter.getAttribute('data-count'));
+                    let count = 0;
+                    const updateCount = () => {
+                        const increment = target / speed;
+                        if (count < target) {
+                            count += increment;
+                            counter.textContent = Math.floor(count);
+                            setTimeout(updateCount, 1);
+                        } else {
+                            counter.textContent = target;
+                            if (counter.nextElementSibling && counter.nextElementSibling.tagName === 'SPAN') {
+                                counter.textContent += '%';
+                            }
+                        }
+                    };
+                    updateCount();
+                    counterObserver.unobserve(counter);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        counters.forEach(counter => {
+            counterObserver.observe(counter);
+        });
+
+        // Scroll Animation
+        const scrollElements = document.querySelectorAll('.blog-card, .product-card');
+
+        const elementInView = (el, percentageScroll = 100) => {
+            const elementTop = el.getBoundingClientRect().top;
+            return (
+                elementTop <= 
+                ((window.innerHeight || document.documentElement.clientHeight) * (percentageScroll/100))
+            );
+        };
+
+        const displayScrollElement = (element) => {
+            element.classList.add('animated');
+        };
+
+        const hideScrollElement = (element) => {
+            element.classList.remove('animated');
+        };
+
+        const handleScrollAnimation = () => {
+            scrollElements.forEach((el) => {
+                if (elementInView(el, 80)) {
+                    displayScrollElement(el);
+                } else {
+                    hideScrollElement(el);
+                }
+            });
+        };
+
+        window.addEventListener('scroll', () => {
+            handleScrollAnimation();
+        });
+
+        // Products Filter
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const productCards = document.querySelectorAll('.product-card');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                const filter = button.getAttribute('data-filter');
+                
+                productCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Initialize animations on load
+        window.addEventListener('load', () => {
+            handleScrollAnimation();
+        });
+    </script>
+</body>
+</html>
