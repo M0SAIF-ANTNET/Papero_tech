@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>بيبرو - صناعة ذكية تأثير صديق للبيئة</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@200;300;400;500;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+    
     <style>
         :root {
             --primary-color: #4CAF50;
@@ -1084,6 +1086,22 @@
         </div>
     </section>
 
+
+    <!-- Contact Section v1 by thaju  let me know if anything is wrong -->
+    <section class="contact section" id="contact">
+        <div class="container">
+            <div class="section-title text-center mb-5">
+                <h2>تواصل معنا</h2>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="contact-form">
+                        <h3 class="mb-4">اطلب الآن</h3>
+                        <form id="contact-form">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">الاسم الكامل*</label>
+                                <input type="text" id="name" name="name" class="form-control" placeholder="اكتب اسمك الكامل" required>
+
     <!-- Contact Section -->
 <section class="contact section" id="contact">
     <div class="container">
@@ -1129,36 +1147,115 @@
                     <div class="contact-details">
                         <div class="contact-detail">
                             <div class="contact-icon">
-                                <i class="fas fa-map-marker-alt"></i>
+                                <i class="fas fa-map-marker-alt"><
                             </div>
-                            <div>
-                                <h4>العنوان</h4>
-                                <p>الزهراء مدينة نصر - برج المنار 2 - خلف معرض السيد المكاوي</p>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">البريد الإلكتروني*</label>
+                                <input type="email" id="email" name="email" class="form-control" placeholder="example@email.com" required>
                             </div>
-                        </div>
-                        <div class="contact-detail">
-                            <div class="contact-icon">
-                                <i class="fas fa-phone-alt"></i>
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">رقم الهاتف (اختياري)</label>
+                                <input type="tel" id="phone" name="phone" class="form-control" placeholder="0123456789">
                             </div>
-                            <div>
-                                <h4>الهاتف</h4>
-                                <p>01222328997</p>
+                            <div class="mb-3">
+                                <label for="product" class="form-label">المنتج*</label>
+                                <select id="product" name="product" class="form-select" required>
+                                    <option value="">اختر المنتج</option>
+                                    <option value="eco-paper">ورق صديق للبيئة</option>
+                                    <option value="paper-bags">شنط ورقية</option>
+                                </select>
                             </div>
-                        </div>
-                        <div class="contact-detail">
-                            <div class="contact-icon">
-                                <i class="fas fa-envelope"></i>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">الرسالة*</label>
+                                <textarea id="message" name="message" class="form-control" rows="5" placeholder="اكتب رسالتك هنا..." required></textarea>
                             </div>
-                            <div>
-                                <h4>البريد الإلكتروني</h4>
-                                <p>info@papero.eg</p>
+                            <div id="form-status" class="mb-3"></div>
+                            <button type="submit" class="btn btn-primary w-100" id="submit-button">إرسال الطلب</button>
+                        </form>
+                    </div>
+    
+                    <div class="contact-info mt-5">
+                        <h3 class="contact-title mb-3">هل لديك أسئلة؟</h3>
+                        <p class="contact-text mb-4">نحن هنا لمساعدتك في اختيار المنتجات الورقية المناسبة لاحتياجات عملك. تواصل معنا الآن للحصول على استشارة مجانية.</p>
+    
+                        <div class="contact-details">
+                            <div class="contact-detail">
+                                <div class="contact-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div>
+                                    <h5>العنوان</h5>
+                                    <p>7631 شارع حلوان</p>
+                                </div>
+                            </div>
+                            <div class="contact-detail">
+                                <div class="contact-icon">
+                                    <i class="fas fa-phone-alt"></i>
+                                </div>
+                                <div>
+                                    <h5>الهاتف</h5>
+                                    <p>+20 12 22328997</p>
+                                </div>
+                            </div>
+                            <div class="contact-detail">
+                                <div class="contact-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h5>البريد الإلكتروني</h5>
+                                    <p>info@papero.eg</p>
+                                </div>
                             </div>
                         </div>
                     </div>
+    
                 </div>
             </div>
         </div>
     </section>
+    
+    <!-- Font Awesome for icons (optional) -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    
+    <!-- Form submission script -->
+    <script>
+        const form = document.getElementById('contact-form');
+        const submitBtn = document.getElementById('submit-button');
+        const statusMsg = document.getElementById('form-status');
+    
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+    
+            // Reset messages and update button
+            statusMsg.innerHTML = '';
+            submitBtn.disabled = true;
+            submitBtn.innerText = 'جاري الإرسال...';
+    
+            fetch('https://app.form2chat.io/f/8e3c9538', {
+                method: 'POST',
+                body: new FormData(form),
+            })
+            .then(response => {
+                if (response.ok) {
+                    statusMsg.innerHTML = '<div class="alert alert-success">✅ تم إرسال الطلب بنجاح! سنقوم بالتواصل معك قريباً.</div>';
+                    form.reset();
+                } else {
+                    statusMsg.innerHTML = '<div class="alert alert-danger">❌ حدث خطأ أثناء الإرسال. حاول مرة أخرى.</div>';
+                }
+            })
+            .catch(error => {
+                console.error('خطأ:', error);
+                statusMsg.innerHTML = '<div class="alert alert-danger">❌ فشل الاتصال بالخادم. حاول لاحقاً.</div>';
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerText = 'إرسال الطلب';
+            });
+        });
+    </script>
+    
+    
+
 
     <!-- Footer -->
     <footer class="footer">
